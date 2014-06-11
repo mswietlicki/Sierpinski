@@ -75,9 +75,11 @@ namespace Sierp
         private void DrawBitmap()
         {
             int x1 = 10, y1 = 10, x2 = 750, y2 = 10, x3 = 500, y3 = 500;
-            var grafika = CreateGraphics();
+            var bmp = new Bitmap(this.Width, this.Height);
+            var grafika = Graphics.FromImage(bmp);
             var pioro = new Pen(Color.Black, 1);
             RysujTrojkat(grafika, pioro, x1, y1, x2, y2, x3, y3, _ileZagniezdzen);
+            BackgroundImage = bmp;
         }
     }
 }
