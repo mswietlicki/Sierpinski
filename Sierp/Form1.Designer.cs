@@ -80,6 +80,7 @@
             this.Controls.Add(this.btnGenerowania);
             this.Controls.Add(this.liczbaZagniezdzen);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
