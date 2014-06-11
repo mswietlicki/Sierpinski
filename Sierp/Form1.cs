@@ -12,6 +12,7 @@ namespace Sierp
 {
     public partial class Form1 : Form
     {
+        private int _ileZagniezdzen = 5;
         public Form1()
         {
             InitializeComponent();
@@ -19,12 +20,11 @@ namespace Sierp
 
         private void btnCzyszczenia_Click(object sender, EventArgs e)
         {
-            System.Drawing.Graphics grafika;
-            grafika = this.CreateGraphics();
-            grafika.Clear(System.Drawing.Color.White);
+            var grafika = CreateGraphics();
+            grafika.Clear(Color.White);
         }
 
-        public void RysujTrojkat(System.Drawing.Graphics gdzie, Pen czym, int x1, int y1, int x2, int y2, int x3, int y3, int ile)
+        public void RysujTrojkat(Graphics gdzie, Pen czym, int x1, int y1, int x2, int y2, int x3, int y3, int ile)
         {
             int x12 = (x1 + x2) / 2;
             int x23 = (x2 + x3) / 2;
@@ -48,36 +48,36 @@ namespace Sierp
 
         private void btnGenerowania_Click(object sender, EventArgs e)
         {
-            int x1 = 10, y1 = 10, x2 = 750, y2 = 10, x3 = 500, y3 = 500;
-            int ileZagniezdzen = 0;
-            if(!int.TryParse(liczbaZagniezdzen.Text, out ileZagniezdzen))
+            if(!int.TryParse(liczbaZagniezdzen.Text, out _ileZagniezdzen))
             {
                 MessageBox.Show(string.Format("Skąd niby mam wiedzieć ile wynosi {0}???", liczbaZagniezdzen.Text));
             }
             else
             {
-                if(ileZagniezdzen > 10)
+                if(_ileZagniezdzen > 10)
                 {
                     if(MessageBox.Show("Jesteś pewien? Więcej niż 10 zagnieżdżeń i tak nie widać, a rysować będą się dość długo.", "Uwaga!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        System.Drawing.Graphics grafika;
-                        grafika = this.CreateGraphics();
-                        Pen pioro = new Pen(System.Drawing.Color.Black, 1);
-                        RysujTrojkat(grafika, pioro, x1, y1, x2, y2, x3, y3, ileZagniezdzen);
+                        DrawBitmap();
                     }
                 }
-                else if(ileZagniezdzen < 1)
+                else if(_ileZagniezdzen < 1)
                 {
                     MessageBox.Show("Ujemna lub zerowa ilość nie ma tu sensu.");
                 }
                 else
                 {
-                    System.Drawing.Graphics grafika;
-                    grafika = this.CreateGraphics();
-                    Pen pioro = new Pen(System.Drawing.Color.Black, 1);
-                    RysujTrojkat(grafika, pioro, x1, y1, x2, y2, x3, y3, ileZagniezdzen);
+                    DrawBitmap();
                 }
             }
+        }
+
+        private void DrawBitmap()
+        {
+            int x1 = 10, y1 = 10, x2 = 750, y2 = 10, x3 = 500, y3 = 500;
+            var grafika = CreateGraphics();
+            var pioro = new Pen(Color.Black, 1);
+            RysujTrojkat(grafika, pioro, x1, y1, x2, y2, x3, y3, _ileZagniezdzen);
         }
     }
 }
